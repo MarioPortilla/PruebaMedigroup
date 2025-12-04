@@ -32,7 +32,7 @@ No necesitas instalar ningún software o dependencia especial para ejecutar este
 
 1.  Clona el repositorio en tu máquina local:
     ```bash
-    git clone https://github.com/MarioPortilla/PruebaMedigroup (https://aws.amazon.com/es/what-is/repo/)
+    git clone [https://github.com/MarioPortilla/PruebaMedigroup](https://github.com/MarioPortilla/PruebaMedigroup)
     ```
 2.  Navega al directorio del proyecto:
     ```bash
