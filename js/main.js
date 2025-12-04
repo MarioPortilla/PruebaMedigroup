@@ -3,6 +3,8 @@ $(document).ready(function() {
     const COLUMNA_FECHA = 3; 
     const API_BASE_URL = 'https://mediback-d59i.onrender.com/api/medicamentos';
     const DATA_TABLES_LANG_URL = 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json';
+    const loaderContainer = document.getElementById('loader-container');
+    const content = document.getElementById('content');
     let medicamentosCache = {};
     let tabla = $('#miTabla').DataTable({
         language: {
@@ -14,7 +16,7 @@ $(document).ready(function() {
     cargarMedicamentos(tabla);
 
     function cargarMedicamentos(tablaInstancia) {
-        
+        showLoader()
         $.ajax({
             url: API_BASE_URL,
             type: 'GET',
@@ -26,9 +28,9 @@ $(document).ready(function() {
                 medicamentosCache = {};
                 const nuevosDatos = response.map(med => {
                     medicamentosCache[med.id] = med;
-
+                    
                     const fechaFormateada = formatearFecha(med.fecha_expiracion);
-
+                    hideLoader()
                     return [
                         med.nombre,
                         med.categoria,
@@ -55,6 +57,7 @@ $(document).ready(function() {
                 });
             },
             error: function(xhr, status, error) {
+                hideLoader()
                 console.error('Error al cargar los medicamentos desde la API.', status, error);
                 $('#miTabla tbody').html(`
                     <tr>
@@ -129,7 +132,7 @@ $(document).ready(function() {
 
 guardarBtn.on('click', function(event) {
     event.preventDefault();
-
+    showLoader()
     $('#caducidadMedicamento').removeClass('is-invalid is-valid');
 
     let bootstrapValid = formNuevoMedicamento.checkValidity();
@@ -213,13 +216,14 @@ guardarBtn.on('click', function(event) {
                 medicamentosCache[id] = nuevaFilaEditar;                
                 Swal.fire('¡Actualizado!', 'Los cambios han sido guardados con éxito.', 'success');
             }
-            
+            hideLoader()
             formNuevoMedicamento.reset(); 
             formNuevoMedicamento.classList.remove('was-validated'); 
             const modalInstance = bootstrap.Modal.getInstance(document.getElementById('modalNuevoRegistro'));
             modalInstance.hide();
         },
         error: function(xhr, status, error) {
+            hideLoader()
             console.error(tipoMetodo + " Error:", xhr.status, error);
             Swal.fire(
                 'Error',
@@ -300,13 +304,14 @@ guardarBtn.on('click', function(event) {
     }
 
     function eliminarRegistroAPI(id, rowElement) {
-
+        showLoader()
         console.log(`[API] Iniciando eliminación para ID: ${id}`);
         
         $.ajax({
             url: API_BASE_URL + '/' + id, 
             type: 'DELETE',
             success: function(response) {
+                hideLoader()
                 Swal.fire(
                     '¡Eliminado!',
                     'El medicamento ha sido eliminado del inventario.',
@@ -316,6 +321,7 @@ guardarBtn.on('click', function(event) {
                 tabla.row(rowElement).remove().draw(false); 
             },
             error: function(xhr, status, error) {
+                hideLoader()
                 console.error(`Error al eliminar ID ${id}:`, error);
                 Swal.fire(
                     'Error',
@@ -325,7 +331,15 @@ guardarBtn.on('click', function(event) {
             }
         });
     }
+    function showLoader() {
+        loaderContainer.style.display = 'flex';
+        content.style.display = 'none';
+    }
 
+    function hideLoader() {
+        loaderContainer.style.display = 'none';
+        content.style.display = 'block'; 
+    }
 });
 
 
