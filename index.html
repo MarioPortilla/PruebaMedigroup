@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestor de Inventario de Medicamentos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Medigroup del Pacífico</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section id="features" class="py-5 d-flex flex-column min-vh-100">
+      <div class="container">
+        <h2 class="text-center mb-4">Gestor de inventario de Medicamentos</h2>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="filtroCategoria" class="form-label"
+                >Filtrar por Categoría:</label
+              >
+              <select id="filtroCategoria" class="form-select">
+                <option value="">Todas las Categorías</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="mb-3">
+              <label for="filtroFecha" class="form-label"
+                >Filtrar por Fecha:</label
+              >
+              <input class="form-control" type="date" id="filtroFecha" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label for="filtroCategoria" class="form-label">&nbsp;</label>
+            <div class="mb-3">
+              <button
+                id="btnCrear"
+                class="btn btn-primary w-100"
+                data-bs-toggle="modal"
+                data-bs-target="#modalNuevoRegistro"
+              >
+                <i class="fas fa-plus-circle"></i> Crear Nuevo Registro
+              </button>
+            </div>
+          </div>
+        </div>
+        <table
+          id="miTabla"
+          class="table table-striped table-bordered"
+          style="width: 100%"
+        >
+          <thead>
+            <tr>
+              <th id="nombre">Nombre</th>
+              <th id="categoría">Categoría</th>
+              <th id="cantidad">Cantidad</th>
+              <th id="fechaExpiración">Fecha Expiración</th>
+              <th id="accion"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-white text-center py-4">
+      <div class="container">
+        <p>
+          &copy; 2025 Medigroup del Pacífico. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <div
+      class="modal fade"
+      id="modalNuevoRegistro"
+      tabindex="-1"
+      aria-labelledby="modalNuevoRegistroLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalNuevoRegistroLabel">
+              Registrar Nuevo Medicamento
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="formNuevoMedicamento" class="needs-validation" novalidate>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="nombreMedicamento" class="form-label"
+                    >Nombre</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nombreMedicamento"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="categoriaMedicamento" class="form-label"
+                    >Categoría</label
+                  >
+                  <select
+                    class="form-select"
+                    id="categoriaMedicamento"
+                    required
+                  >
+                    <option value="" disabled selected>Seleccione</option>
+                    <option value="Analgésico">Analgésico</option>
+                    <option value="Antibiótico">Antibiótico</option>
+                    <option value="Antifúngico">Antifúngico</option>
+                    <option value="Antihistamínico">Antihistamínico</option>
+                    <option value="Antiinflamatorio">Antiinflamatorio</option>
+                    <option value="Antiinflamatorio Tópico">
+                      Antiinflamatorio Tópico
+                    </option>
+                    <option value="Cardiovascular">Cardiovascular</option>
+                    <option value="Corticosteroide">Corticosteroide</option>
+                    <option value="Dermatológico">Dermatológico</option>
+                    <option value="Diabetes">Diabetes</option>
+                    <option value="Diurético">Diurético</option>
+                    <option value="Gastrointestinal">Gastrointestinal</option>
+                    <option value="Respiratorio">Respiratorio</option>
+                    <option value="Sistema Nervioso">Sistema Nervioso</option>
+                    <option value="Suplemento">Suplemento</option>
+                    <option value="Tiroides">Tiroides</option>
+                    <option value="Vitamina">Vitamina</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="cantidadStock" class="form-label">Cantidad</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="cantidadStock"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="caducidadMedicamento" class="form-label"
+                    >Fecha de Caducidad</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="caducidadMedicamento"
+                    required
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              id="guardarMedicamentoBtn"
+            >
+              <i class="bi bi-save"></i> Guardar Registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
