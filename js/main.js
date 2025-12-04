@@ -1,7 +1,7 @@
 $(document).ready(function() {
     const COLUMNA_CATEGORIA = 1;
     const COLUMNA_FECHA = 3; 
-    const API_BASE_URL = 'http://localhost:3306/api/medicamentos';
+    const API_BASE_URL = 'https://mediback-d59i.onrender.com/api/medicamentos';
     const DATA_TABLES_LANG_URL = 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/es-ES.json';
     let medicamentosCache = {};
     let tabla = $('#miTabla').DataTable({

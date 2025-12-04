@@ -1,6 +1,6 @@
 # Prueba Tecnica Medigroup
 
-Esta es un sistema de gestion de inventario para medicamentos
+Este es un sistema de gestion de inventario para medicamentos
 
 ## 🚀 Tecnologías
 
@@ -13,7 +13,7 @@ Este proyecto está construido principalmente con tecnologías web estándar.
 
 ## 🌟 Características Principales
 
-Lista de las funcionalidades más importantes de tu aplicación.
+Lista de las funcionalidades más importantes de la aplicación.
 
 * Muestra todos los registros de la base de datos con la información basica de medicamentos
 * Mantiene información local de los registros y hace cambios a la base de datos por medio de llamadas api
